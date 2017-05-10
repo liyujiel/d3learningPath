@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>Hello...</title>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <style type="text/css"></style>
 <style>
 .axis path,
@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<script  src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script  src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script>
 		var width = 400;
 		var height = 400;
@@ -55,13 +55,24 @@
 										return xScale(i) + rectPadding/2;
 									})
 									.attr("y",function(d){
+										var min = yScale.domain()[0];
+										return yScale(min);
+									})
+									.transition()
+									.delay(function(d,i){
+										return i * 200;
+									})
+									.duration(200)
+									.ease("bounce")
+									.attr("y",function(d){
 										return yScale(d);
 									})
 									.attr("width", xScale.rangeBand() - rectPadding)
 									.attr("height", function(d){
 										return height - padding.top - padding.bottom - yScale(d);
 									})
-									.attr("fill","grey");
+									.attr("fill","grey")
+									.attr("fill","steelblue");
 									
 		var texts = svg.selectAll(".myText")
 									.data(dataset)
@@ -84,6 +95,9 @@
 									.text(function(d){
 										return d;
 									});
+		
+		
+		
 		svg.append("g")
 		  .attr("class","axis")
 		  .attr("transform","translate(" + padding.left + "," + (height - padding.bottom) + ")")
@@ -94,7 +108,7 @@
 		  .attr("class","axis")
 		  .attr("transform","translate(" + padding.left + "," + padding.top + ")")
 		  .call(yAxis);					
-									
+		
 	</script>
 </body>
 
