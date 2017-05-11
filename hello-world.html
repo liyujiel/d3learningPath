@@ -58,12 +58,12 @@
 										var min = yScale.domain()[0];
 										return yScale(min);
 									})
-									.transition()
-									.delay(function(d,i){
-										return i * 200;
-									})
-									.duration(200)
-									.ease("bounce")
+									// .transition()
+									// .delay(function(d,i){
+									// 	return i * 200;
+									// })
+									// .duration(200)
+									// .ease("bounce")
 									.attr("y",function(d){
 										return yScale(d);
 									})
@@ -71,9 +71,18 @@
 									.attr("height", function(d){
 										return height - padding.top - padding.bottom - yScale(d);
 									})
-									.attr("fill","grey")
-									.attr("fill","steelblue");
+									// .attr("fill","grey")
+									.attr("fill","steelblue")
+					        .on("mouseover",function(d,i){
+					            d3.select(this)
+					                .attr("fill","yellow");
+					        })
+					        .on("mouseout",function(d,i){
+					        	d3.select(this).attr("fill","steelblue");
+					        });
 									
+									
+
 		var texts = svg.selectAll(".myText")
 									.data(dataset)
 									.enter()
